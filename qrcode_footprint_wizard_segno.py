@@ -162,11 +162,12 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         """Build this Footprint."""
         # used many times...
         half_number_of_elements = self.symbol_size[0] / 2
+        half_element_size = self.X/2
 
         # Center position of QrCode
-        yposition = - int(half_number_of_elements * self.X)
+        yposition = - int(half_number_of_elements * self.X - half_element_size)
         for line in self.qr.matrix_iter(border=self.border):
-            xposition = - int(half_number_of_elements * self.X)
+            xposition = - int(half_number_of_elements * self.X - half_element_size)
             for pixel in line:
                 # Trust table for drawing a pixel
                 # Negative is a boolean;
