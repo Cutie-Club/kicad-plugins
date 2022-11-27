@@ -15,16 +15,16 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-#  last change: 20181201 s-light.
+# https://forum.kicad.info/t/qr-code-does-it-print-ok/13845/10
+# https://github.com/s-light
+
+# Originally by Stefan Krüger (s-light)
+# Modified QRCode generator using Segno
+# https://pypi.org/project/segno/
 
 import pcbnew
 import FootprintWizardBase
-
-##########################################
-# Additional import for QRCode
-# https://pypi.org/project/segno/
 import segno
-
 
 class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
     """FootprintWizard to create a QR Code."""
@@ -52,7 +52,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         self.AddParam("Caption", "Thickness", self.uMM, 0.12)
 
     def CheckParameters(self):
-        """Check paramter."""
+        """Check parameter."""
         self.Barcode = str(self.parameters['Barcode']['Contents'])
         self.X = self.parameters['Barcode']['Pixel Width']
         self.negative = self.parameters['Barcode']['Negative']
@@ -111,7 +111,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         # build a rectangular pad as a dot on copper layer,
         # and a polygon (a square) on silkscreen
         if self.UseCu:
-            pad = pcbnew.D_PAD(self.module)
+            pad = pcbnew.PAD(self.module)
             pad.SetSize(pcbnew.wxSize(self.X, self.X))
             pad.SetPosition(pcbnew.wxPoint(xposition, yposition))
             pad.SetShape(pcbnew.PAD_SHAPE_RECT)
@@ -129,7 +129,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
             self.module.Add(polygon)
 
     def _add_MaskCutOut(self):
-        pad = pcbnew.D_PAD(self.module)
+        pad = pcbnew.PAD(self.module)
         pad.SetSize(pcbnew.wxSize(
             self.X * self.symbol_size[0],
             self.X * self.symbol_size[1]))
@@ -144,7 +144,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
 
     def _draw_coutyard(self):
         """Draw Courtyard."""
-        # http://kicad-pcb.org/libraries/klc/F5.3/
+        # https://klc.kicad.org/footprint/f5/f5.3/
         size = self.X * self.symbol_size[0]
         # add clearance
         size += pcbnew.FromMM(0.25 * 2)
@@ -191,12 +191,11 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         self.module.Value().SetPosition(pcbnew.wxPoint(0, - textPosition))
         self.module.Value().SetTextHeight(self.textHeight)
         self.module.Value().SetTextWidth(self.textWidth)
-        self.module.Value().SetThickness(self.textThickness)
+        self.module.Value().SetTextThickness(self.textThickness)
         self.module.Reference().SetPosition(pcbnew.wxPoint(0, textPosition))
         self.module.Reference().SetTextHeight(self.textHeight)
         self.module.Reference().SetTextWidth(self.textWidth)
-        self.module.Reference().SetThickness(self.textThickness)
+        self.module.Reference().SetTextThickness(self.textThickness)
         self.module.Value().SetLayer(pcbnew.F_SilkS)
-
 
 QRCodeWizardSegno().register()
