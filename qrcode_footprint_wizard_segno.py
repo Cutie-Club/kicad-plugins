@@ -90,9 +90,10 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         line_width = int(line_width * 1000)
         xposition = int(xposition)
         yposition = int(yposition)
-        # creates a EDGE_MODULE of polygon type. The polygon is a square
-        polygon = pcbnew.EDGE_MODULE(self.module)
-        polygon.SetShape(pcbnew.S_LINE)
+        # creates a filled FP_SHAPE of polygon type. The polygon is a square
+        # this could possibly be replaced with
+        polygon = pcbnew.FP_SHAPE(self.module)
+        polygon.SetShape(pcbnew.SHAPE_T_POLY)
         polygon.SetWidth(line_width)
         polygon.SetLayer(layer)
         halfsize = int(size / 2)
@@ -105,6 +106,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
             - halfsize + xposition, -halfsize + yposition)
         polygon.GetPolyShape().Append(
             - halfsize + xposition, halfsize + yposition)
+        polygon.SetFilled(True)
         return polygon
 
     def _drawPixel(self, xposition, yposition):
