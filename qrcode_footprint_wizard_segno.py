@@ -31,6 +31,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
     """FootprintWizard to create a QR Code."""
 
     def __init__(self):
+        super().__init__()
         self.allow_micro_qr = True
         self.border_auto = True
         self.border = 4
