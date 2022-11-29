@@ -161,7 +161,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         pad.SetLayerSet(layerset)
         self.module.Add(pad)
 
-    def draw_courtyard(self):
+    def __draw_courtyard(self):
         """Draw Courtyard."""
         # https://klc.kicad.org/footprint/f5/f5.3/
         size = self.pixel_size * self.symbol_size[0]
@@ -206,7 +206,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         # add mask cutout
         if self.use_cu and self.mask_cut_out:
             self.__add_mask_cutout()
-        self.draw_courtyard()
+        self.__draw_courtyard()
 
         # add labels
         # int((5 + half_number_of_elements) * self.pixel_size))
