@@ -186,7 +186,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         self.module.Value().SetTextWidth(self.textWidth)
         self.module.Value().SetTextThickness(self.textThickness)
         self.module.Value().SetLayer(pcbnew.F_Fab)
-        
+
         self.module.Reference().SetPosition(pcbnew.wxPoint(0, textPosition))
         self.module.Reference().SetTextHeight(self.textHeight)
         self.module.Reference().SetTextWidth(self.textWidth)
