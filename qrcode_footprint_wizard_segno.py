@@ -190,7 +190,7 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
             y_position += self.pixel_size
 
         # add mask cutout
-        if self.use_cu and self.mask_cut_out:
+        if self.mask_cut_out:
             self.__add_mask_cutout()
         self.__draw_courtyard()
 
