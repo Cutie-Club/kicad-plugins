@@ -15,8 +15,6 @@ import segno
 
 
 class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
-    """FootprintWizard to create a QR Code."""
-
     def __init__(self):
         super().__init__()
         self.allow_micro_qr = True
@@ -105,9 +103,9 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         """Draw square area."""
         # prepare values
         # 0,000005mm == 5
-        line_width = int(line_width * 1000)
         x_position = int(x_position)
         y_position = int(y_position)
+        line_width = int(line_width * 1000)
 
         # creates a filled FP_SHAPE of polygon type. The polygon is a square
         polygon = pcbnew.FP_SHAPE(self.module)
