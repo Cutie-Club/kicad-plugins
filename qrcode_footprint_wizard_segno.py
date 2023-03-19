@@ -83,7 +83,9 @@ class QRCodeWizardSegno(FootprintWizardBase.FootprintWizard):
         self.module.Value().SetText(str(self.content))
 
         # Build Qrcode
-        self.qr_code = segno.make(str(self.content))
+        self.qr_code = segno.make(
+            str(self.content), micro=False if self.allow_micro_qr == False else None
+        )
 
         if self.border_auto:
             self.parameters["Barcode"]["Border"] = self.qr_code.default_border_size
